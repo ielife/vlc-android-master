@@ -19,6 +19,7 @@ extern "C"
 #include <libswresample/swresample.h>
 #include <SDL2/include/SDL.h>
 //#include <SDL2/include/SDL_thread.h>
+#include <transcoder.h>
 #ifdef __cplusplus
 }
 #endif
@@ -34,7 +35,11 @@ int main(int argc, char *argv[])
 {
     LogInit();
 
-    char fileName[128] = {"source.200kbps.768x320.flv"};
+//    char fileName[128] = {"source.200kbps.768x320.flv"};
+//    char fileName[128] = {"vd80-p3255-19tc_1-4-19_11-19pm.mp4"};
+//    char fileName[128] = {"d1b1cff03b27f47fdeea66b23337d20a.mp4"};
+    char fileName[128] = {"transcoder.avi"};
+
     //char fileName[256] = {"G:\\迅雷下载\\绣春刀II：修罗战场.HD.720p.国语中字.mkv"};
     // char fileName[256] = {"D:\\迅雷下载\\[阳光电影www.ygdy8.com]行尸之惧第二季第01集[中英双字].rmvb"};
     // char fileName[256] = {"E:\\stream\\si19_21c_2k_64qam_cr23_gi32_7.50.ts"};  // 音频解码错误
@@ -68,6 +73,15 @@ int main(int argc, char *argv[])
     // 注册复用器,编码器等
     av_register_all();
 
+    // 转码测试
+//    av_register_all();
+    avfilter_register_all();
+    Transcoder *pTranscoder = new Transcoder();
+    bool bRet = pTranscoder->CreateRes("cuc_ieschool.ts", "transcoder.avi");
+    LogDebug("CreateRes ret:%d", bRet);
+    pTranscoder->Start();
+    pTranscoder->DestoryRes();
+    delete pTranscoder;
 
     // 打开多媒体文件
     if ( avformat_open_input( &pFormatCtx, fileName, NULL, NULL ) != 0 )

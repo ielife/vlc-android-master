@@ -35,11 +35,13 @@ SOURCES += main.cpp \
     audio.cpp \
     video.cpp \
     avpackets_queue.cpp \
-    av_clock.cpp
+    av_clock.cpp \
+    transcoder.cpp
 
 HEADERS += \
     log.h \
     audio.h \
     video.h \
     avpackets_queue.h \
-    av_clock.h
+    av_clock.h \
+    transcoder.h
